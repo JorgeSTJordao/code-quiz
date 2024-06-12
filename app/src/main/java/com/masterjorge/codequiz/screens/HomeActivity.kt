@@ -12,6 +12,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ExitToApp
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -40,6 +45,24 @@ fun HomeActivity(navController: NavController, viewModel: SurveyViewModel) {
             .background(color = Color.White)
 
     ){
+
+        Row (
+            modifier = Modifier
+                .padding(60.dp),
+            horizontalArrangement = Arrangement.End
+        ){
+            IconButton(
+                modifier = Modifier.background(Color.Black),
+                onClick = {
+                    navController.navigate(Routes.login)
+                }) {
+                Icon(
+                    Icons.Rounded.ExitToApp,
+                    contentDescription = null,
+                    tint = Color.White
+                )
+            }
+        }
         Column(
             modifier = Modifier
                 .fillMaxSize(),

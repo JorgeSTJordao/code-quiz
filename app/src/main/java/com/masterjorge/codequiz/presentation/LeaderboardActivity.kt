@@ -1,6 +1,5 @@
-package com.masterjorge.codequiz.screens
+package com.masterjorge.codequiz.presentation
 
-import android.view.RoundedCorner
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -27,13 +26,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.masterjorge.codequiz.data.Routes
-import com.masterjorge.codequiz.data.users
-import com.masterjorge.codequiz.domain.SurveyViewModel
+import com.masterjorge.codequiz.Routes
 
 @Composable
-fun LeaderboardActivity(navController: NavController, viewModel: SurveyViewModel){
+fun LeaderboardActivity(navController: NavController){
 
+    /*
     var listUsers = users
 
     Surface(
@@ -50,10 +48,7 @@ fun LeaderboardActivity(navController: NavController, viewModel: SurveyViewModel
                     .fillMaxWidth()
             ) {
                 IconButton(
-                    onClick = {
-                        viewModel.zeroIndex()
-                        navController.navigate(Routes.home)
-                    },
+                    onClick = {},
                     Modifier.background(Color.Black),
                 )
                 {
@@ -101,9 +96,10 @@ fun LeaderboardActivity(navController: NavController, viewModel: SurveyViewModel
                 }
             }
         }
-    }
+    }*/
 }
 
+/*
 @Composable
 fun RowScope.Celula(text: String, weight: Float){
     Text(text = text,
@@ -112,10 +108,4 @@ fun RowScope.Celula(text: String, weight: Float){
             .weight(weight)
             .padding(8.dp)
     )
-}
-
-@Preview
-@Composable
-fun DashboardActivityPreview(){
-    LeaderboardActivity(rememberNavController(), SurveyViewModel())
-}
+}*/

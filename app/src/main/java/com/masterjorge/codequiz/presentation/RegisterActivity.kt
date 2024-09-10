@@ -1,4 +1,4 @@
-package com.masterjorge.codequiz.screens
+package com.masterjorge.codequiz.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,25 +11,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.masterjorge.codequiz.Routes
+import com.masterjorge.codequiz.domain.RegisterViewModel
 
 @Composable
 fun RegisterActivity(navController: NavController){
 
-    var username by remember { mutableStateOf("")}
-    var senha by remember { mutableStateOf("")}
-    var confirmar_senha by remember { mutableStateOf("")}
+    //Configurações da ViewModel
+    val registerViewModel = hiltViewModel<RegisterViewModel>()
+    val uiState = registerViewModel.uiState.collectAsStateWithLifecycle()
 
     Surface(
         modifier = Modifier
@@ -44,35 +42,40 @@ fun RegisterActivity(navController: NavController){
 
             Spacer(modifier = Modifier.height(60.dp))
 
+            //Mudar nome
             OutlinedTextField(
-                value = username,
-                onValueChange = {
-                    username = it
+                value = uiState.value.nome,
+                onValueChange = { nome ->
+                    registerViewModel.mudarNome(nome)
                 },
                 label = { Text(text = "Username") }
             )
             Spacer(modifier = Modifier.height(5.dp))
 
+            //Mudar senha
             OutlinedTextField(
-                value = "",
-                onValueChange = {
-                                senha = it
+                value = uiState.value.senha,
+                onValueChange = { senha ->
+                    registerViewModel.mudarSenha(senha)
                 },
                 label = { Text(text = "Senha") }
             )
             Spacer(modifier = Modifier.height(5.dp))
 
+            //Mudar segunda senha
             OutlinedTextField(
-                value = "",
-                onValueChange = {
-                    confirmar_senha = it
+                value = uiState.value.segundaSenha,
+                onValueChange = { segundaSenha ->
+                    registerViewModel.mudarSegundaSenha(segundaSenha)
                 },
                 label = { Text(text = "Confirmar Senha") }
             )
+
             Spacer(modifier = Modifier.height(5.dp))
 
+
             Button(onClick ={
-                navController.navigate("main")
+                registerViewModel.cadastrar()
             }) {
                 Text(text = "Cadastrar")
             }
@@ -80,16 +83,10 @@ fun RegisterActivity(navController: NavController){
             Spacer(modifier = Modifier.height(10.dp))
 
             TextButton(onClick = {
-                navController.navigate("login")
+                navController.navigate(Routes.SIGNIN)
             }) {
                 Text(text = "Voltar para o login?")
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun RegisterActivityPreview(){
-    RegisterActivity(navController = rememberNavController())
 }

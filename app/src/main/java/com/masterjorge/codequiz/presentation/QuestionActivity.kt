@@ -1,13 +1,11 @@
-package com.masterjorge.codequiz.screens
+package com.masterjorge.codequiz.presentation
 
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -24,7 +22,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Matrix.Companion.ScaleX
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,30 +29,22 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.masterjorge.codequiz.data.Routes
-import com.masterjorge.codequiz.data.User
-import com.masterjorge.codequiz.domain.SurveyViewModel
+import com.masterjorge.codequiz.Routes
 
 @Composable
-fun QuestionActivity(navController: NavController, viewModel: SurveyViewModel){
+fun QuestionActivity(navController: NavController) {
 
-    val lista by viewModel.listQuestions.collectAsState()
-    val index by viewModel.index.collectAsState()
-    val user by viewModel.user.collectAsState()
-
-    val options = lista[index].options.shuffled()
-
-    Surface (
+    Surface(
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
     ) {
-        Column (
+        Column(
             modifier = Modifier
                 .padding(30.dp),
             verticalArrangement = Arrangement.SpaceEvenly
-        ){
-            Image(painter = painterResource(id = lista[index].image),
+        ) {
+            /*Image(painter = painterResource(id = lista[index].image),
                 modifier = Modifier
                     .height(180.dp)
                     .fillMaxWidth(),
@@ -79,11 +68,12 @@ fun QuestionActivity(navController: NavController, viewModel: SurveyViewModel){
                         navController
                     )
                 }
-            }
+            }*/
         }
     }
 }
 
+/*
 @Composable
 fun CardOption(
     text: String,
@@ -126,10 +116,4 @@ fun CardOption(
     ){
         Text(text = text)
     }
-}
-
-@Preview
-@Composable
-fun QuestionActivityPreview(){
-    QuestionActivity(rememberNavController(), SurveyViewModel())
-}
+}*/

@@ -1,4 +1,4 @@
-package com.masterjorge.codequiz.screens
+package com.masterjorge.codequiz.presentation
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,32 +11,23 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.masterjorge.codequiz.data.Routes
-import com.masterjorge.codequiz.data.users
-import com.masterjorge.codequiz.domain.SurveyViewModel
-import com.masterjorge.codequiz.domain.UserViewModel
+import com.masterjorge.codequiz.Routes
+import com.masterjorge.codequiz.domain.LoginViewModel
 
 @Composable
-fun LoginActivity(
-    navController: NavController,
-    viewModel: SurveyViewModel
-){
-    var username by remember { mutableStateOf("")}
-    var password by remember { mutableStateOf("")}
-    val user by viewModel.user.collectAsState()
+fun LoginActivity(navController: NavController){
 
-    val listUsers = users
+    //Configurações da ViewModel
+    val loginViewModel = hiltViewModel<LoginViewModel>()
+    val uiState = loginViewModel.uiState.collectAsStateWithLifecycle()
 
     Surface (
         modifier = Modifier.fillMaxSize(),
@@ -49,40 +40,42 @@ fun LoginActivity(
             Text(text = "Bem-vindo de volta", fontSize = 40.sp, fontWeight = FontWeight.Bold)
 
             Spacer(modifier = Modifier.height(60.dp))
+
+            //Atualiza o campo de texto em relação ao nome
             OutlinedTextField(
-                value = username,
-                onValueChange = {
-                    username = it
+                value =  uiState.value.nome,
+                onValueChange = { nome ->
+                    loginViewModel.mudarNome(nome)
                 },
-                label = { Text(text = "Username") }
+                label = { Text(text = "Usuário") }
             )
 
             Spacer(modifier = Modifier.height(5.dp))
 
+            //Atualiza o campo de texto em relação à senha
             OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
+                value = uiState.value.senha,
+                onValueChange = { senha ->
+                    loginViewModel.mudarSenha(senha)
+                },
                 label = { Text(text = "Senha") }
             )
 
             Spacer(modifier = Modifier.height(5.dp))
 
             Button(onClick = {
-                listUsers.forEach {
-                    if (it.username == username && it.senha.toString() == password) {
-                        viewModel.getMainUser(it)
-                        viewModel.setScore(it.score)
-                        navController.navigate(Routes.home)
-                    }
-                }
+                loginViewModel.logar()
             }) {
                 Text(text = "Login")
             }
+
             Spacer(modifier = Modifier.height(10.dp))
+
+            //Cadastro
             TextButton(onClick = {
-                navController.navigate(Routes.register)
-            }) {
-                Text(text = "Fazer cadastro")
+                navController.navigate(Routes.SIGNUP) }
+            ) {
+                Text(text = "Sign Up")
             }
         }
     }

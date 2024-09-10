@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("com.google.devtools.ksp")
+    id("kotlin-kapt")
+    id ("com.google.dagger.hilt.android")
 }
 
 android {
@@ -68,22 +69,44 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    //Navigation
-    val nav_version = "2.7.7"
+    //AVISO: siga essa ordem de dependências para não dar erro
+    //WARNING: follow this order dependecy to avoid getting some error
 
-    implementation("androidx.navigation:navigation-compose:$nav_version")
+    //Navigation
+    //https://developer.android.com/develop/ui/compose/navigation?hl=pt-br
+
+    //Permitir a navegação entre os composables
+    implementation(libs.androidx.navigation.compose)
 
     //ViewModel
-    val lifecycle_version = "2.8.1"
+    //https://developer.android.com/jetpack/androidx/releases/lifecycle
 
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version")
+    //Permitir que os composable interajam com o cilo de vida do Compose
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    //Acessa a ViewModel no interior dos composables
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
 
     //Room
-    val room_version = "2.6.1"
+    //https://developer.android.com/training/data-storage/room
 
-    implementation("androidx.room:room-runtime:$room_version")
-    annotationProcessor("androidx.room:room-compiler:$room_version")
+    //Permite acessar as classes principais do Room
+    implementation(libs.androidx.room.runtime)
+    //Gera o código a partir das anotações como @Database, @Dao, @Entity
+    kapt(libs.androidx.room.compiler)
+    //Extensões para utilizar corrotinas e realizar operações de forma assíncrona
+    implementation(libs.androidx.room.ktx)
+
+    //Hilt
+    //https://developer.android.com/training/dependency-injection/hilt-android
+    //https://developer.android.com/develop/ui/compose/libraries#hilt-navigation
+
+    //Permite o uso da biblioteca, incluindo o uso das anotações
+    implementation(libs.hilt.android)
+
+    //Permite usar o hiltViewModel no contexto de composable
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    //Permite processar as anotações, caso contrário não seria possível compilar
+    kapt(libs.hilt.compiler)
 
 }

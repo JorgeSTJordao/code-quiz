@@ -1,0 +1,5 @@
+Usuario - id (int) - nome (string) - senha (string)
+Resposta - id (int) -  id_escolha (int) - id_pergunta (int) - certa (boolean)
+Historico - id (int) -  nome (string) - id_usuario (int)
+Pergunta - id (int) - id_quiz (int) - pergunta (string) - opcoes (string) - correta (int)
+Quiz - id (int) - nome (string)

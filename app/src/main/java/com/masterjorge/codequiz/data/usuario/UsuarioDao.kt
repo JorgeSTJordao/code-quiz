@@ -15,6 +15,9 @@ interface UsuarioDao {
     @Query("SELECT * FROM usuarios WHERE usuario = :usuario AND senha = :senha")
     fun lerUsuario(usuario: String, senha: String): Usuario?
 
+    @Query("SELECT * FROM usuarios WHERE id = :id")
+    fun lerUsuarioId(id: Int): Usuario?
+
     @Query("SELECT * FROM usuarios")
     fun lerTodosUsuarios(): Flow<List<Usuario>>
 }

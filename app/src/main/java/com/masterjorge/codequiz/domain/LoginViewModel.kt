@@ -2,6 +2,7 @@ package com.masterjorge.codequiz.domain
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.masterjorge.codequiz.data.SimpleStorage
 import com.masterjorge.codequiz.data.usuario.UsuarioRepositorio
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +39,11 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
                 _uiState.update {
                     it.copy(aceito =  true)
                 }
+
+                val id = usuarioRepositorio.lerUsuario(uiState.value.nome, uiState.value.senha)!!.id
+
+                SimpleStorage.setNovoId(id)
+
             }
         }
     }

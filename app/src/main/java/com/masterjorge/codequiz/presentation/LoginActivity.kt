@@ -65,6 +65,9 @@ fun LoginActivity(navController: NavController){
 
             Button(onClick = {
                 loginViewModel.logar()
+
+                if (uiState.value.aceito)
+                    navController.navigate(Routes.HOME)
             }) {
                 Text(text = "Login")
             }

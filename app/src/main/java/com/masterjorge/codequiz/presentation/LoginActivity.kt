@@ -64,10 +64,10 @@ fun LoginActivity(navController: NavController){
             Spacer(modifier = Modifier.height(5.dp))
 
             Button(onClick = {
-                loginViewModel.logar()
-
                 if (uiState.value.aceito)
                     navController.navigate(Routes.HOME)
+                else
+                    loginViewModel.logar()
             }) {
                 Text(text = "Login")
             }

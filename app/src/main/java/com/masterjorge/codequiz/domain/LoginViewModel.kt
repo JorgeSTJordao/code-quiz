@@ -34,18 +34,17 @@ class LoginViewModel @Inject constructor(private val usuarioRepositorio: Usuario
     fun logar(){
 
         viewModelScope.launch(Dispatchers.IO){
-            if (usuarioRepositorio.lerUsuario(uiState.value.nome, uiState.value.senha) != null )
+            if (usuarioRepositorio.lerUsuario(uiState.value.nome, uiState.value.senha) != null)
             {
-                _uiState.update {
-                    it.copy(aceito =  true)
-                }
-
                 val id = usuarioRepositorio.lerUsuario(uiState.value.nome, uiState.value.senha)!!.id
-
                 SimpleStorage.setNovoId(id)
 
-            }
+                _uiState.update {
+                    it.copy(aceito =  true)
+
+                }
         }
+    }
     }
 }
 

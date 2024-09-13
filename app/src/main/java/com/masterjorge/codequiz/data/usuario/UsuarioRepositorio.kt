@@ -11,6 +11,8 @@ class UsuarioRepositorio (private val usuarioDao: UsuarioDao): UsuarioDao {
     override fun lerUsuario(usuario: String, senha: String): Usuario? =
         usuarioDao.lerUsuario(usuario, senha)
 
+    override fun lerUsuarioId(id: Int): Usuario? = usuarioDao.lerUsuarioId(id)
+
 
     override fun lerTodosUsuarios(): Flow<List<Usuario>> =
         usuarioDao.lerTodosUsuarios()

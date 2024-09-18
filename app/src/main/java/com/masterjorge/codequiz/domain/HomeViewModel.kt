@@ -21,7 +21,7 @@ class HomeViewModel @Inject constructor(private val usuarioRepositorio: UsuarioR
     private val _uiState = MutableStateFlow(UsuarioDados())
     val uiState = _uiState.asStateFlow()
 
-    init {
+    /*init {
 
         viewModelScope.launch(Dispatchers.IO) {
             val usuario = usuarioRepositorio.lerUsuarioId(SimpleStorage.id)!!.usuario
@@ -32,21 +32,8 @@ class HomeViewModel @Inject constructor(private val usuarioRepositorio: UsuarioR
                     nome = usuario
                 )
             }
-
-            var i = 0
-
-            //10 milhões
-            while (i < 10){
-                i++
-                delay(1000)
-            }
-
-            _uiState.update {
-                it.copy(nome = i.toString())
-            }
-
         }
-    }
+    }*/
 }
 
 data class UsuarioDados(

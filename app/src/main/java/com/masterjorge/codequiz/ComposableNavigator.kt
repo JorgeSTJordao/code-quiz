@@ -14,7 +14,7 @@ import com.masterjorge.codequiz.presentation.RegisterActivity
 fun ComposableNavigator(navController: NavHostController){
 
     //NavHost: local que onde permite a transição de telas
-    NavHost(navController = navController, startDestination = Routes.SIGNIN) {
+    NavHost(navController = navController, startDestination = Routes.HOME) {
 
         composable(Routes.SIGNIN) {
             LoginActivity(navController)

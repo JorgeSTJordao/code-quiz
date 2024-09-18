@@ -1,6 +1,7 @@
 package com.masterjorge.codequiz.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.navigation.NavController
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -26,17 +28,17 @@ import androidx.navigation.compose.rememberNavController
 import com.masterjorge.codequiz.R
 import com.masterjorge.codequiz.domain.HomeViewModel
 import com.masterjorge.codequiz.domain.LoginViewModel
+import com.masterjorge.codequiz.presentation.components.QuizCard
 
 @Composable
 fun HomeActivity(navController: NavController) {
 
     //Configurações da ViewModel
-    val homeViewModel = hiltViewModel<HomeViewModel>()
-    val uiState = homeViewModel.uiState.collectAsStateWithLifecycle()
+    //val homeViewModel = hiltViewModel<HomeViewModel>()
+    //val uiState = homeViewModel.uiState.collectAsStateWithLifecycle()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = colorResource(id = R.color.blue_background)
     ) {
         Column(modifier = Modifier
             .fillMaxSize()
@@ -46,15 +48,15 @@ fun HomeActivity(navController: NavController) {
             horizontalAlignment = Alignment.Start
         ) {
             Row {
-                Text(text = uiState.value.nome, fontSize = 30.sp)
+                Text(text = ""/*uiState.value.nome*/, fontSize = 30.sp)
             }
             Row {
-                Card {
-                    Text(text = "python")
-                }
-                Card {
-                    Text(text = "kotlin")
-                }
+                QuizCard(
+                    painter = painterResource(id = R.drawable.kotlin_icon),
+                    text = "Kotlin",
+                    contentDescription = "Kotlin quiz",
+                    quizAccess = {}
+                )
             }
 
             Spacer(modifier = Modifier.size(30.dp))

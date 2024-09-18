@@ -1,0 +1,6 @@
+- Para a seleção de perguntas quando o usuário entrar no questionário
+    - Utilizar um composable de carregamento
+    - Enquanto os dados não tiverem sido recebidos não haverá uma transição para questões
+    - O objeto que receber deverá criar uma matriz, onde o primeiro item é a pergunta
+    enquanto os outros são as opções dadas de forma aleatória
+    - Por fim, toda a lista será percorrida até que o último índice seja igual a 4 (serão 4 perguntas)
